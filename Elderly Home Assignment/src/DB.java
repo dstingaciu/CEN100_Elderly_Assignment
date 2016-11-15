@@ -42,17 +42,31 @@ public class DB {
 		}
 	}
 	
-	public void returnPatients() throws IOException{
+	public Set returnPatients() throws IOException{
+		Set set = patient.entrySet();
 		try{
+
 		FileWriter txt=new FileWriter(("Patients.txt"), true);
 		BufferedReader reader=new BufferedReader(new FileReader("Patients.txt"));
 		String eh=reader.readLine();
 		StringTokenizer t = new StringTokenizer(eh);
 		while(reader.readLine()!=null){
-			
+			if (t.nextToken().equalsIgnoreCase("Name:")){
+				String name = t.nextToken();
+				if(t.nextToken().equalsIgnoreCase("ID:")){
+					String id = t.nextToken();
+					patient.put(name,id);
+				}
+
+			}
 		}
+		txt.close();
+		reader.close();
+		return set;
+
 		}catch(IOException e){
 			System.out.println("ERROR!");
+			return set;
 		}
 	}
 
