@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
+import java.text.SimpleDateFormat;
 
 public class Main {
 	static JFrame frame,setup;
@@ -13,17 +14,20 @@ public class Main {
 	static int maxx=1920,maxy=1080;
 	static JTextField name,ID;
 	static String nameString, IDString;
-	static boolean onState=false;
+	static boolean onState=false,exit = false;
 	static String userName = "Dan";
 	static Font dankM = new Font("Roboto",Font.PLAIN,100);
 	static Font dankB = new Font("Roboto", Font.PLAIN,80);
+    static SimpleDateFormat date = new SimpleDateFormat ("E yyyy.MM");
+    static SimpleDateFormat hour = new SimpleDateFormat ("hh:mm:ss a zzz");
+    static Date day = new Date();
 	DB database = new DB();
 
 	public static void main(String[] args)throws IOException {
 
 
 		link.displayFSetup();
-		while(!onState){
+		while(!onState&&!exit){
 			System.out.println();
 			if(onState){
 				setup.setVisible(false);
@@ -31,6 +35,8 @@ public class Main {
 				frame.setDefaultLookAndFeelDecorated(true);
 				mainUI();
 			}
+			day = new Date();
+			
 		}
 		
 
@@ -47,6 +53,8 @@ public class Main {
 		GridBagConstraints gbc = new GridBagConstraints();
 		
 		JLabel welcomeMessage = new JLabel("Hello "+userName);
+		JLabel displayDay = new JLabel(date.format(day));
+		JLabel displayTime = new JLabel(hour.format(day));
 		JButton chat = new JButton ("Chat");
 		JButton news = new JButton ("News");
 		JButton games = new JButton ("Games");
@@ -58,6 +66,10 @@ public class Main {
 		news.setForeground(Color.orange);
 		games.setBackground(Color.GRAY);
 		games.setForeground(Color.orange);
+		displayDay.setBackground(Color.GRAY);
+		displayDay.setForeground(Color.orange);
+		displayTime.setBackground(Color.GRAY);
+		displayTime.setForeground(Color.orange);
 		
 		panel.setPreferredSize(new Dimension(maxx,maxy));
 		
@@ -65,6 +77,8 @@ public class Main {
 		chat.setFont(dankB);
 		news.setFont(dankB);
 		games.setFont(dankB);
+		displayDay.setFont(dankB);
+		displayTime.setFont(dankB);
 		
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -89,6 +103,11 @@ public class Main {
 		gbc.weightx = 0.0;
 		gbc.anchor = GridBagConstraints.CENTER;
 		panel.add(chat,gbc);
+		gbc.gridy = 0;
+		gbc.anchor = GridBagConstraints.NORTH;
+		panel.add(displayTime,gbc);
+		gbc.anchor = GridBagConstraints.ABOVE_BASELINE;
+		panel.add(displayDay, gbc);
 		
 		
 		frame.add(panel);
