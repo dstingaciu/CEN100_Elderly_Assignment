@@ -17,16 +17,17 @@ public class Main {
 	static boolean onState=false,exit = false;
 	static String userName = "Dan";
 	static Font dankM = new Font("Roboto",Font.PLAIN,100);
-	static Font dankB = new Font("Roboto", Font.PLAIN,80);
-    static SimpleDateFormat date = new SimpleDateFormat ("E yyyy.MM");
-    static SimpleDateFormat hour = new SimpleDateFormat ("hh:mm:ss a zzz");
+	static Font dankB = new Font("Roboto", Font.PLAIN,150);
+    static SimpleDateFormat date = new SimpleDateFormat ("E yyyy.MM.dd");
+    static SimpleDateFormat hour = new SimpleDateFormat ("");
     static Date day = new Date();
 	DB database = new DB();
 
 	public static void main(String[] args)throws IOException {
 
 
-		link.displayFSetup();
+		link.mainUI();
+		/*
 		while(!onState&&!exit){
 			System.out.println();
 			if(onState){
@@ -38,6 +39,7 @@ public class Main {
 			day = new Date();
 			
 		}
+		*/
 		
 
 
@@ -60,12 +62,12 @@ public class Main {
 		JButton games = new JButton ("Games");
 		
 		welcomeMessage.setForeground(Color.orange);
-		chat.setBackground(Color.GRAY);
-		chat.setForeground(Color.orange);
-		news.setBackground(Color.GRAY);
-		news.setForeground(Color.orange);
-		games.setBackground(Color.GRAY);
-		games.setForeground(Color.orange);
+		chat.setBackground(Color.RED);
+		chat.setForeground(Color.WHITE);
+		news.setBackground(new Color(43,183,7));
+		news.setForeground(Color.WHITE);
+		games.setBackground(Color.BLUE);
+		games.setForeground(Color.WHITE);
 		displayDay.setBackground(Color.GRAY);
 		displayDay.setForeground(Color.orange);
 		displayTime.setBackground(Color.GRAY);
@@ -77,8 +79,8 @@ public class Main {
 		chat.setFont(dankB);
 		news.setFont(dankB);
 		games.setFont(dankB);
-		displayDay.setFont(dankB);
-		displayTime.setFont(dankB);
+		displayDay.setFont(dankM);
+		displayTime.setFont(dankM);
 		
 		gbc.gridx = 0;
 		gbc.gridy = 0;
