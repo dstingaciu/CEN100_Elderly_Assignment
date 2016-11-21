@@ -34,10 +34,8 @@ public class DB {
 			while(i.hasNext()){
 				Map.Entry me = (Map.Entry)i.next();
 				String id = me.getValue().toString();
-				if(!searchList(id)){
-					pw.println("Name: "+me.getKey()+" ID: "+me.getValue());
-					System.out.println("Master List Updated");
-				}
+				pw.println("Name: "+me.getKey()+" ID: "+me.getValue());
+				System.out.println("Master List Updated");
 			}
 			pw.close();
 			reader.close();
@@ -79,7 +77,7 @@ public class DB {
 		return username;
 	}
 	
-	public boolean searchList(String id) throws IOException{
+	public String searchList(String id) throws IOException{
 		boolean found = false;
 		try{
 
@@ -92,21 +90,27 @@ public class DB {
 				if(u.nextToken().equalsIgnoreCase("Name:")){
 					username = u.nextToken();
 				}
-				if(t.nextToken().equalsIgnoreCase("ID:")){
-					if(t.nextToken().equalsIgnoreCase(id)){
+				if(u.nextToken().equalsIgnoreCase("ID:")){
+					String etc = u.nextToken();
+					System.out.println(etc);
+					if(etc.equalsIgnoreCase(id)){
 						found = true;
+						break;
 					}
 				}
-					
-					
 			}
+			reader.close();
+			txt.close();
+			if(!found){
+				return ("Nothing");
+			}else{
+				return username;
+			}
+
 		}catch(IOException e){
 			System.out.println("ERROR!");
 		}
-		if(!found){
-			username = "";
-		}
-		return found;
+		return ("Dank");
 	}
 
 }

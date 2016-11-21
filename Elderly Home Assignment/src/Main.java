@@ -26,20 +26,12 @@ public class Main {
 	public static void main(String[] args)throws IOException {
 
 
-		link.mainUI();
-		/*
+		link.displayFSetup();
+
 		while(!onState&&!exit){
-			System.out.println();
-			if(onState){
-				setup.setVisible(false);
-				setup.dispose();
-				frame.setDefaultLookAndFeelDecorated(true);
-				mainUI();
-			}
 			day = new Date();
 			
 		}
-		*/
 		
 
 
@@ -122,7 +114,7 @@ public class Main {
 
 	
 	public void displayFSetup(){
-		setup = new JFrame("First Time Setup!");
+		setup = new JFrame("Login");
 		setup.setDefaultLookAndFeelDecorated(true);
 
 		
@@ -138,7 +130,7 @@ public class Main {
 		JLabel nameText = new JLabel("Name: ");
 		JLabel IDText = new JLabel("ID: ");
 		name = new JTextField("",30);
-		ID = new JTextField("",30);
+		ID = new JTextField("",40);
 		JButton next = new JButton("Next");
 		next.setFont(new Font("Roboto",Font.PLAIN,25));
 		c.gridx = 0;
@@ -183,11 +175,15 @@ public class Main {
 	}
 	public void getName(String idS){
 		try {
-			database.searchList(idS);
+			userName = database.searchList(idS);
+			if(userName.equalsIgnoreCase("nothing")){
+				System.out.println("Not found");
+				AssignNew(name.getText());
+			}
 		} catch (IOException e) {
 			System.out.println("Top kek");
 		}
-		userName = database.returnName();
+
 	}
 	
 	class NextEvent implements ActionListener{
@@ -200,6 +196,10 @@ public class Main {
 				getName(IDString);
 			}
 			onState=true;
+			setup.setVisible(false);
+			setup.dispose();
+			frame.setDefaultLookAndFeelDecorated(true);
+			mainUI();
 		}
 	}
 
