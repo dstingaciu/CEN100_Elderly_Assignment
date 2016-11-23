@@ -4,11 +4,15 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+
 import java.text.SimpleDateFormat;
 
 public class Main {
-	static JFrame frame,setup;
+	static JFrame frame,setup,chat;
 	static JLabel label;
 	static Main link = new Main();
 	static int maxx=1920,maxy=1080;
@@ -22,6 +26,9 @@ public class Main {
     static SimpleDateFormat hour = new SimpleDateFormat ("");
     static Date day = new Date();
 	DB database = new DB();
+
+    
+
 
 	public static void main(String[] args)throws IOException {
 
@@ -37,7 +44,68 @@ public class Main {
 
 	}
 	
-	public static void mainUI(){
+	public void chatUI(){
+		chat = new JFrame ("Chat UI");
+		chat.setDefaultLookAndFeelDecorated(true);
+		JPanel panel = new JPanel(new GridBagLayout());
+		panel.setBackground(new Color(169, 50, 38));
+		GridBagConstraints gbc = new GridBagConstraints();
+		JButton p1 = new JButton ();
+		JButton p2 = new JButton ();
+		JButton p3 = new JButton ();
+		JLabel p1L = new JLabel("John");
+		JLabel p2L = new JLabel ("Bob");
+		JLabel p3L = new JLabel ("Mary");
+		p1.setBackground(new Color(169, 50, 38));
+		p2.setBackground(new Color(169, 50, 38));
+		p3.setBackground(new Color(169, 50, 38));
+		
+		p1L.setForeground(new Color(52,152,219));
+		p1L.setFont(dankM);
+		p2L.setForeground(new Color(52,152,219));
+		p2L.setFont(dankM);
+		p3L.setForeground(new Color(52,152,219));
+		p3L.setFont(dankM);
+
+		try {
+			Image img = ImageIO.read(getClass().getResource("Elder1.jpg"));
+			Image img2 = ImageIO.read(getClass().getResource("Elder2.jpg"));
+			Image img3 = ImageIO.read(getClass().getResource("Elder3.jpg"));
+			p1.setIcon(new ImageIcon(img));
+			p2.setIcon(new ImageIcon(img2));
+			p3.setIcon(new ImageIcon(img3));
+		}catch (IOException e) {
+			System.out.println("ERROR");
+				  
+		}
+		gbc.gridx = 0;
+		gbc.gridy = 0;
+		gbc.ipady = 0;
+		gbc.anchor = GridBagConstraints.NORTHWEST;
+		panel.add(p1,gbc);
+		gbc.weighty = 0.5;
+		gbc.weightx = 0;
+		gbc.gridx = 1;
+		panel.add(p2,gbc);
+		gbc.gridx = 2;
+		panel.add(p3,gbc);
+		gbc.gridx = 0;
+		gbc.anchor = GridBagConstraints.WEST;
+		gbc.insets = new Insets(0,40,0,0);
+		panel.add(p1L,gbc);
+		gbc.weightx = 0;
+		gbc.gridx = 1;
+		panel.add(p2L, gbc);
+		gbc.gridx = 2;
+		panel.add(p3L, gbc);
+		chat.add(panel);
+		chat.setVisible(true);
+		chat.setSize(maxx,maxy);
+
+		  
+	}
+	
+	public void mainUI(){
 		frame = new JFrame("Main UI");
 		frame.setDefaultLookAndFeelDecorated(true);
 		JPanel panel = new JPanel(new GridBagLayout()){
@@ -56,6 +124,12 @@ public class Main {
 		welcomeMessage.setForeground(Color.orange);
 		chat.setBackground(Color.RED);
 		chat.setForeground(Color.WHITE);
+	    chat.addActionListener(new ActionListener(){
+	            @Override
+	            public void actionPerformed(ActionEvent e){
+	            	chatUI();
+	            }
+	        });
 		news.setBackground(new Color(43,183,7));
 		news.setForeground(Color.WHITE);
 		games.setBackground(Color.BLUE);
@@ -202,5 +276,12 @@ public class Main {
 			mainUI();
 		}
 	}
+	class chatEvent implements ActionListener{
+		public void actionPerformed(ActionEvent event){
+			chatUI();
+			
+		}
+	}
 
 }
+
